@@ -1,0 +1,1 @@
+copy "%~dp0\dist\encDecLogic\Qt5Core.dll" "%~dp0\dist\encDecLogic\PyQt5\Qt\bin"

@@ -1,0 +1,7 @@
+del "%~dp0\executable_file\*.py"
+del "%~dp0\executable_file\*.ui"
+del "%~dp0\executable_file\*.spec"
+rmdir /s /q "%~dp0\executable_file\dist"
+rmdir /s /q "%~dp0\executable_file\build"
+copy "%~dp0\*.py" "%~dp0\executable_file"
+copy "%~dp0\*.ui" "%~dp0\executable_file"

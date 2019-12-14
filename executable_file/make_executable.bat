@@ -1,0 +1,1 @@
+pyinstaller -w encDecLogic.py
