@@ -7,7 +7,6 @@ from binascii import unhexlify
 import sys
 
 USER_GUIDE_FILE = "\\guide\\User_guide.pdf"
-aadDlms = b"\x30\x4D\x59\x44\x55\x4D\x4D\x59\x47\x4C\x4F\x42\x41\x4C\x4B\x45\x59" #Valore fisso
 
 def convertLdn(ldn):
 
@@ -100,7 +99,7 @@ class mywindow(QtWidgets.QMainWindow):
             #Inizio a decifrare
             aesgcm = AESGCM(stringKey)
 
-            apdu = aesgcm.encrypt(initVector, stringChiperApdu, aadDlms) #Se uso la funzione decrypt non funziona
+            apdu = aesgcm.encrypt(initVector, stringChiperApdu, unhexlify(self.ui.txtAad.text()))
 
             apduToString = apdu.hex()
 
@@ -128,7 +127,7 @@ class mywindow(QtWidgets.QMainWindow):
             #Inizio a cifrare
             aesgcm = AESGCM(stringKey)
 
-            ct = aesgcm.encrypt(initVector, stringApdu, aadDlms)
+            ct = aesgcm.encrypt(initVector, stringApdu, unhexlify(self.ui.txtAad.text()))
 
             ctToString = ct.hex()
 
