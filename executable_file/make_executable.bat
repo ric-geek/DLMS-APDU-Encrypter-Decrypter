@@ -1,1 +1,1 @@
-pyinstaller -w encDecLogic.py
+pyinstaller -w mainLogic.py

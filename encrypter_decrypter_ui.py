@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.txtSystemTitle.setFont(font)
-        self.txtSystemTitle.setMaxLength(32)
+        self.txtSystemTitle.setMaxLength(34)
         self.txtSystemTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.txtSystemTitle.setObjectName("txtSystemTitle")
         self.lblSystemTitle = QtWidgets.QLabel(self.centralwidget)
@@ -134,7 +134,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "DLMS APDU Encryption/Decryption  Ver - 0.0.3"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "DLMS APDU Encryption/Decryption  Ver - 0.0.4"))
         self.lblApdu.setText(_translate("MainWindow", "APDU"))
         self.lblCipherApdu.setText(_translate("MainWindow", "Cipher APDU"))
         self.lblFrameCounter.setText(_translate("MainWindow", "Frame Counter (4 Bytes)"))
