@@ -28,8 +28,8 @@ def checkInput(stringaInput):
             #Creo la messagebox di errore
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
-            msg.setText("Dati non corretti!")
-            msg.setWindowTitle("Errore!")
+            msg.setText("Wrong data!")
+            msg.setWindowTitle("Error!")
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec_() #Serve per visualizzare la messagebox
 
@@ -148,8 +148,8 @@ class mywindow(QtWidgets.QMainWindow):
                     # Creo la messagebox di errore
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Critical)
-                    msg.setText("LDN deve essere espresso in esadecimale e lungo 32 caratteri!")
-                    msg.setWindowTitle("Errore!")
+                    msg.setText("LDN should be express in hex form and 32 character long!")
+                    msg.setWindowTitle("Error!")
                     msg.setStandardButtons(QMessageBox.Ok)
                     msg.exec_()  # Serve per visualizzare la messagebox
 
@@ -165,8 +165,8 @@ class mywindow(QtWidgets.QMainWindow):
                     # Creo la messagebox di errore
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Critical)
-                    msg.setText("LDN deve essere lungo 16 caratteri!")
-                    msg.setWindowTitle("Errore!")
+                    msg.setText("LDN must be 16 character long!")
+                    msg.setWindowTitle("Error!")
                     msg.setStandardButtons(QMessageBox.Ok)
                     msg.exec_()  # Serve per visualizzare la messagebox
 
