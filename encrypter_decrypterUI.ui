@@ -55,10 +55,10 @@
    <widget class="QLabel" name="lblFrameCounter">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>50</y>
-      <width>51</width>
-      <height>51</height>
+      <x>470</x>
+      <y>30</y>
+      <width>101</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
@@ -71,7 +71,7 @@
    <widget class="QLineEdit" name="txtFrameCounter">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>580</x>
       <y>60</y>
       <width>113</width>
       <height>22</height>
