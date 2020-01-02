@@ -1,1 +1,0 @@
-pyuic5 encrypter_decrypterUI.ui -o encrypter_decrypter_ui.py

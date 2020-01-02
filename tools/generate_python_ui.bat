@@ -1,0 +1,1 @@
+pyuic5 %~dp0\..\encrypter_decrypterUI.ui -o %~dp0\..\encrypter_decrypter_ui.py
