@@ -1,1 +1,0 @@
-copy "%~dp0\dist\mainLogic\Qt5Core.dll" "%~dp0\dist\mainLogic\PyQt5\Qt\bin"
