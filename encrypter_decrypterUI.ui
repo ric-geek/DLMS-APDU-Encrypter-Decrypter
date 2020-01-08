@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DLMS APDU Encryption/Decryption  Ver - 0.0.4</string>
+   <string>DLMS APDU Encryption/Decryption  Ver - 0.0.5</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="lblApdu">
@@ -314,7 +314,7 @@
      </font>
     </property>
     <property name="maxLength">
-     <number>32</number>
+     <number>34</number>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

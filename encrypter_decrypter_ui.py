@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'encrypter_decrypterUI.ui'
+# Form implementation generated from reading ui file 'C:\Users\djald\Documents\Python\encrypt_decrypt_dlms_apdu_github\tools\\..\encrypter_decrypterUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -108,7 +108,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.txtAad.setFont(font)
-        self.txtAad.setMaxLength(32)
+        self.txtAad.setMaxLength(34)
         self.txtAad.setAlignment(QtCore.Qt.AlignCenter)
         self.txtAad.setObjectName("txtAad")
         self.lblAad = QtWidgets.QLabel(self.centralwidget)
@@ -134,7 +134,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "DLMS APDU Encryption/Decryption  Ver - 0.0.4"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "DLMS APDU Encryption/Decryption  Ver - 0.0.5"))
         self.lblApdu.setText(_translate("MainWindow", "APDU"))
         self.lblCipherApdu.setText(_translate("MainWindow", "Cipher APDU"))
         self.lblFrameCounter.setText(_translate("MainWindow", "Frame Counter (4 Bytes)"))
