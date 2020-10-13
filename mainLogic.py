@@ -8,24 +8,27 @@ import sys
 
 USER_GUIDE_FILE = "\\guide\\User_guide.pdf"
 
-def convertLdn(ldn):
 
-    return bytearray.fromhex(ldn).decode() #Converto l'argomento da stringa esadecimale a stringa ASCII
+def convert_ldn(ldn):
 
-#Funzione che controlla che l'input contenga solo numeri e lettere
-def checkInput(stringaInput):
+    # Converto l'argomento da stringa esadecimale a stringa ASCII
+    return bytearray.fromhex(ldn).decode()
 
-        if (stringaInput.isalnum()):
 
-            return unhexlify(stringaInput)
+# Funzione che controlla che l'input contenga solo numeri e lettere
+def check_input(stringa_input):
 
-        if(stringaInput == "-1"):
+        if stringa_input.isalnum():
 
-            return False #Questo if mi serve per evitare di mostrare una doppia MSGbox
+            return unhexlify(stringa_input)
+
+        if stringa_input == "-1":
+
+            return False  # Questo if mi serve per evitare di mostrare una doppia MSGbox
 
         else:
 
-            #Creo la messagebox di errore
+            # Creo la messagebox di errore
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
             msg.setText("Wrong data!")
@@ -34,6 +37,7 @@ def checkInput(stringaInput):
             msg.exec_() #Serve per visualizzare la messagebox
 
             return False
+
 
 class mywindow(QtWidgets.QMainWindow):
 
@@ -52,21 +56,22 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.cmbCifraDecifra.addItem("Encrypt")
         self.ui.cmbCifraDecifra.addItem("Decrypt")
 
-        self.ui.cmbCifraDecifra.currentTextChanged.connect(self.lblModificata) #Va messo dopo l'aggiunta delle voci nella combobox altrimenti triggera l'evento
+        # Va messo dopo l'aggiunta delle voci nella combobox altrimenti triggera l'evento
+        self.ui.cmbCifraDecifra.currentTextChanged.connect(self.lbl_modificata)
 
-        self.ui.openUserGuide.triggered.connect(self.apriUserGuide)
+        self.ui.openUserGuide.triggered.connect(self.apri_user_guide)
 
-    def apriUserGuide(self):
+    def apri_user_guide(self):
 
         os.startfile(os.getcwd() + USER_GUIDE_FILE)
 
         return
 
-    def lblModificata(self):
+    def lbl_modificata(self):
 
-        if(self.ui.cmbCifraDecifra.currentText() == "Decrypt"):
+        if self.ui.cmbCifraDecifra.currentText() == "Decrypt":
 
-            #Cambio il testo delle label relative alle textbox
+            # Cambio il testo delle label relative alle textbox
             self.ui.lblApdu.setText("Cipher APDU")
             self.ui.lblCipherApdu.setText("APDU")
 
@@ -81,17 +86,17 @@ class mywindow(QtWidgets.QMainWindow):
 
             cipherApdu = self.ui.textApdu.toPlainText().replace("\n", "").replace(" ", "") #Rimuovo eventuali newline e spazi
 
-            stringChiperApdu = checkInput(cipherApdu)  # Recupero dalla textbox il dato inserito
+            stringChiperApdu = check_input(cipherApdu)  # Recupero dalla textbox il dato inserito
 
             if (stringChiperApdu == False):
                 return  #Non proseguo con la decifratura
 
-            stringKey = checkInput(self.ui.txtKey.text())
+            stringKey = check_input(self.ui.txtKey.text())
 
             if (stringKey == False):
                 return
 
-            initVector = checkInput(self.createIV(self.ui.txtFrameCounter.text()))
+            initVector = check_input(self.createIV(self.ui.txtFrameCounter.text()))
 
             if (initVector == False):
                 return
@@ -109,17 +114,17 @@ class mywindow(QtWidgets.QMainWindow):
 
             apdu = self.ui.textApdu.toPlainText().replace("\n", "").replace(" ", "") #Rimuovo eventuali newline e spazi
 
-            stringApdu = checkInput(apdu)  #Recupero dalla textbox il dato inserito
+            stringApdu = check_input(apdu)  #Recupero dalla textbox il dato inserito
 
             if (stringApdu == False):
                 return  #Non proseguo con la cifratura
 
-            stringKey = checkInput(self.ui.txtKey.text())
+            stringKey = check_input(self.ui.txtKey.text())
 
             if (stringKey == False):
                 return
 
-            initVector = checkInput(self.createIV(self.ui.txtFrameCounter.text()))
+            initVector = check_input(self.createIV(self.ui.txtFrameCounter.text()))
 
             if (initVector == False):
                 return
@@ -182,7 +187,7 @@ class mywindow(QtWidgets.QMainWindow):
 
         if (self.ui.chbLdnHex.isChecked()):
 
-            charManufId = list(convertLdn(self.ui.txtLdn.text()))
+            charManufId = list(convert_ldn(self.ui.txtLdn.text()))
 
         else:
 
