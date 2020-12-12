@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1589</width>
-    <height>753</height>
+    <height>830</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,25 +19,9 @@
      <widget class="QTabWidget" name="tabWidget">
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>Encrypter/Decrypter</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="1" column="0">
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>GroupBox</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton">
-             <property name="text">
-              <string>PushButton</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox">
           <property name="title">
@@ -46,26 +30,53 @@
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="5">
+              <widget class="QLineEdit" name="txt_system_title"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_encryption_key">
+               <property name="text">
+                <string>Encryption Key (16 Bytes)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="lbl_authentication_key">
+               <property name="text">
+                <string>Authentication Key (16 Bytes)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="cmb_client_server"/>
+             </item>
              <item row="1" column="1">
               <widget class="QLineEdit" name="txt_authentication_key"/>
              </item>
-             <item row="2" column="2">
+             <item row="1" column="4" colspan="2">
+              <widget class="QLineEdit" name="txt_ldn"/>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="cmb_security_control_byte"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="lbl_security_control_byte">
+               <property name="text">
+                <string>Security Control Byte (SC)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
               <widget class="QLabel" name="lbl_frame_counter">
                <property name="text">
                 <string>Frame Counter (4 Bytes)</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="4">
-              <widget class="QLineEdit" name="txt_system_title"/>
-             </item>
-             <item row="1" column="3" colspan="2">
-              <widget class="QLineEdit" name="txt_ldn"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="lbl_security_control_byte">
+             <item row="0" column="3" colspan="2">
+              <widget class="QLabel" name="lbl_system_title">
                <property name="text">
-                <string>Security Control Byte (SC)</string>
+                <string>System Title</string>
                </property>
               </widget>
              </item>
@@ -79,25 +90,8 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="cmb_security_control_byte"/>
-             </item>
-             <item row="2" column="4">
+             <item row="2" column="5">
               <widget class="QLineEdit" name="txt_frame_counter"/>
-             </item>
-             <item row="1" column="2">
-              <widget class="QLabel" name="lbl_ldn">
-               <property name="text">
-                <string>LDN (16 Bytes)</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lbl_authentication_key">
-               <property name="text">
-                <string>Authentication Key (16 Bytes)</string>
-               </property>
-              </widget>
              </item>
              <item row="3" column="0">
               <widget class="QLabel" name="lbl_client_server">
@@ -106,22 +100,41 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_encryption_key">
+             <item row="1" column="3">
+              <widget class="QLabel" name="lbl_ldn">
                <property name="text">
-                <string>Encryption Key (16 Bytes)</string>
+                <string>LDN (16 Bytes)</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="2" colspan="2">
-              <widget class="QLabel" name="lbl_system_title">
+             <item row="3" column="3">
+              <widget class="QPushButton" name="btn_encrypt_decrypt">
+               <property name="maximumSize">
+                <size>
+                 <width>93</width>
+                 <height>16777215</height>
+                </size>
+               </property>
                <property name="text">
-                <string>System Title</string>
+                <string>Crypt/Decrypt</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
-              <widget class="QComboBox" name="cmb_client_server"/>
+             <item row="3" column="2">
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -136,10 +149,34 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>1</width>
-               <height>200</height>
+               <height>10</height>
               </size>
              </property>
             </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="grb_apdu">
+          <property name="title">
+           <string>APDU</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QTextEdit" name="textEdit"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="grb_result">
+          <property name="title">
+           <string>Result</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QTextEdit" name="textEdit_2"/>
            </item>
           </layout>
          </widget>
