@@ -17,6 +17,9 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Encrypter/Decrypter</string>
@@ -164,7 +167,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="0" column="0">
-            <widget class="QTextEdit" name="textEdit"/>
+            <widget class="QTextEdit" name="txt_apdu"/>
            </item>
           </layout>
          </widget>
@@ -176,7 +179,7 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QTextEdit" name="textEdit_2"/>
+            <widget class="QTextEdit" name="txt_result"/>
            </item>
           </layout>
          </widget>
@@ -185,7 +188,7 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Converter</string>
        </attribute>
       </widget>
      </widget>
