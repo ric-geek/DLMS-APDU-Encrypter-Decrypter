@@ -1,12 +1,13 @@
 import os
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from encrypter_decrypter_ui import Ui_MainWindow
+from encrypter_decrypter_ui_new import Ui_MainWindow
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from binascii import unhexlify
 import sys
 
 USER_GUIDE_FILE = "\\guide\\User_guide.pdf"
+security_control_byte = ["30", "10"]
 
 
 def convert_ldn(ldn):
@@ -15,7 +16,7 @@ def convert_ldn(ldn):
     return bytearray.fromhex(ldn).decode()
 
 
-# Funzione che controlla che l'input contenga solo numeri e lettere
+# Check if i have HEX string
 def check_input(stringa_input):
 
         if stringa_input.isalnum():
@@ -48,18 +49,15 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.ui.btnMakeApdu.clicked.connect(self.btnMakeApduClicked)
+        self.ui.btn_encrypt_decrypt.clicked.connect(self.btn_encrypt_decrypt_clicked)
 
-        self.ui.cmbClientServer.addItem("Client")
-        self.ui.cmbClientServer.addItem("Server")
+        self.ui.cmb_client_server.addItem("Client")
+        self.ui.cmb_client_server.addItem("Server")
 
-        self.ui.cmbCifraDecifra.addItem("Encrypt")
-        self.ui.cmbCifraDecifra.addItem("Decrypt")
+        self.ui.cmb_security_control_byte.addItem("30 - Encrypted and Authenticated")
+        self.ui.cmb_security_control_byte.addItem("10 - Authenticated")
 
-        # Va messo dopo l'aggiunta delle voci nella combobox altrimenti triggera l'evento
-        self.ui.cmbCifraDecifra.currentTextChanged.connect(self.lbl_modificata)
-
-        self.ui.openUserGuide.triggered.connect(self.apri_user_guide)
+        # self.ui.openUserGuide.triggered.connect(self.apri_user_guide)
 
     def apri_user_guide(self):
 
@@ -80,63 +78,56 @@ class mywindow(QtWidgets.QMainWindow):
             self.ui.lblApdu.setText("APDU")
             self.ui.lblCipherApdu.setText("Cipher APDU")
 
-    def btnMakeApduClicked(self):
+    def btn_encrypt_decrypt_clicked(self):
 
-        if(self.ui.cmbCifraDecifra.currentText() == "Decrypt"):
+        if self.ui.cmb_security_control_byte.currentText() == "30 - Encrypted and Authenticated":
 
-            cipherApdu = self.ui.textApdu.toPlainText().replace("\n", "").replace(" ", "") #Rimuovo eventuali newline e spazi
+            cipher_apdu = self.ui.txt_apdu.toPlainText().replace("\n", "").replace(" ", "")  # Remove newline and space
 
-            stringChiperApdu = check_input(cipherApdu)  # Recupero dalla textbox il dato inserito
+            string_chiper_apdu = check_input(cipher_apdu)
 
-            if (stringChiperApdu == False):
+            if string_chiper_apdu == False:
                 return  #Non proseguo con la decifratura
 
-            stringKey = check_input(self.ui.txtKey.text())
+            encryption_key = check_input(self.ui.txt_encryption_key.text())
 
-            if (stringKey == False):
+            if encryption_key == False:
+
                 return
 
-            initVector = check_input(self.createIV(self.ui.txtFrameCounter.text()))
+            authentication_key = check_input(self.ui.txt_authentication_key.text())
 
-            if (initVector == False):
+            if authentication_key == False:
+
                 return
 
-            #Inizio a decifrare
-            aesgcm = AESGCM(stringKey)
+            # Create the AAD
+            aad = security_control_byte[0] + authentication_key
 
-            apdu = aesgcm.encrypt(initVector, stringChiperApdu, unhexlify(self.ui.txtAad.text()))
+            # Create init vector
+            init_vector = check_input(self.createIV(self.ui.txt_frame_counter.text()))
 
-            apduToString = apdu.hex()
+            if init_vector == False:
+                return
 
-            self.ui.textOutputApdu.setPlainText(apduToString[:-32])
+            # Encrypt or Decrypt
+            aesgcm = AESGCM(encryption_key)
+            apdu = aesgcm.encrypt(init_vector, string_chiper_apdu, unhexlify(aad))
+            apdu_to_string = apdu.hex()
+            self.ui.txt_result.setPlainText(apdu_to_string[:-8])
 
         else:
 
-            apdu = self.ui.textApdu.toPlainText().replace("\n", "").replace(" ", "") #Rimuovo eventuali newline e spazi
-
-            stringApdu = check_input(apdu)  #Recupero dalla textbox il dato inserito
-
-            if (stringApdu == False):
-                return  #Non proseguo con la cifratura
-
-            stringKey = check_input(self.ui.txtKey.text())
-
-            if (stringKey == False):
-                return
-
-            initVector = check_input(self.createIV(self.ui.txtFrameCounter.text()))
-
-            if (initVector == False):
-                return
+            print("not implemented yet!")
 
             #Inizio a cifrare
-            aesgcm = AESGCM(stringKey)
+            # aesgcm = AESGCM(stringKey)
 
-            ct = aesgcm.encrypt(initVector, stringApdu, unhexlify(self.ui.txtAad.text()))
+            # ct = aesgcm.encrypt(initVector, stringApdu, unhexlify(self.ui.txtAad.text()))
 
-            ctToString = ct.hex()
+            # ctToString = ct.hex()
 
-            self.ui.textOutputApdu.setPlainText(ctToString[:-8]) #Il -8 serve per eliminare i 4 byte del TAG di autenticazione che non servono
+            # self.ui.textOutputApdu.setPlainText(ctToString[:-32]) #Il -8 serve per eliminare i 4 byte del TAG di autenticazione che non servono
 
     #Funzione che si occupa di creare il vettore di inizializzazione
     def createIV(self, frameCounter):
