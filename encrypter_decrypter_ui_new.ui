@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -26,9 +26,9 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox">
+         <widget class="QGroupBox" name="grb_encryption_parameters">
           <property name="title">
-           <string>GroupBox</string>
+           <string>Encryption Parameters</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
