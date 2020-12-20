@@ -65,19 +65,6 @@ class mywindow(QtWidgets.QMainWindow):
 
         return
 
-    def lbl_modificata(self):
-
-        if self.ui.cmbCifraDecifra.currentText() == "Decrypt":
-
-            # Cambio il testo delle label relative alle textbox
-            self.ui.lblApdu.setText("Cipher APDU")
-            self.ui.lblCipherApdu.setText("APDU")
-
-        else:
-
-            self.ui.lblApdu.setText("APDU")
-            self.ui.lblCipherApdu.setText("Cipher APDU")
-
     def btn_encrypt_decrypt_clicked(self):
 
         if self.ui.cmb_security_control_byte.currentText() == "30 - Encrypted and Authenticated":
@@ -95,14 +82,12 @@ class mywindow(QtWidgets.QMainWindow):
 
                 return
 
-            authentication_key = check_input(self.ui.txt_authentication_key.text())
+            # Create the AAD
+            aad = check_input(security_control_byte[0] + self.ui.txt_authentication_key.text())
 
-            if authentication_key == False:
+            if aad == False:
 
                 return
-
-            # Create the AAD
-            aad = security_control_byte[0] + authentication_key
 
             # Create init vector
             init_vector = check_input(self.createIV(self.ui.txt_frame_counter.text()))
@@ -112,7 +97,7 @@ class mywindow(QtWidgets.QMainWindow):
 
             # Encrypt or Decrypt
             aesgcm = AESGCM(encryption_key)
-            apdu = aesgcm.encrypt(init_vector, string_chiper_apdu, unhexlify(aad))
+            apdu = aesgcm.encrypt(init_vector, string_chiper_apdu, aad)
             apdu_to_string = apdu.hex()
             self.ui.txt_result.setPlainText(apdu_to_string[:-8])
 
@@ -130,11 +115,11 @@ class mywindow(QtWidgets.QMainWindow):
             # self.ui.textOutputApdu.setPlainText(ctToString[:-32]) #Il -8 serve per eliminare i 4 byte del TAG di autenticazione che non servono
 
     #Funzione che si occupa di creare il vettore di inizializzazione
-    def createIV(self, frameCounter):
+    def createIV(self, frame_counter):
 
-        if(self.ui.cmbClientServer.currentText() == "Client"):
+        if(self.ui.cmb_client_server.currentText() == "Client"):
 
-            return self.ui.txtSystemTitle.text() + frameCounter
+            return self.ui.txt_system_title.text() + frame_counter
 
         else:
 
@@ -153,7 +138,7 @@ class mywindow(QtWidgets.QMainWindow):
 
                 else:
 
-                    return self.computeServerSystemTitle() + frameCounter
+                    return self.computeServerSystemTitle() + frame_counter
 
             else:
 
@@ -170,7 +155,7 @@ class mywindow(QtWidgets.QMainWindow):
 
                 else:
 
-                    return self.computeServerSystemTitle() + frameCounter
+                    return self.computeServerSystemTitle() + frame_counter
 
     def computeServerSystemTitle(self):
 
