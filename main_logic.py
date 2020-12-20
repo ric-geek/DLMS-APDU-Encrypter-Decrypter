@@ -90,7 +90,7 @@ class mywindow(QtWidgets.QMainWindow):
                 return
 
             # Create init vector
-            init_vector = check_input(self.createIV(self.ui.txt_frame_counter.text()))
+            init_vector = check_input(self.create_iv(self.ui.txt_frame_counter.text()))
 
             if init_vector == False:
                 return
@@ -99,23 +99,50 @@ class mywindow(QtWidgets.QMainWindow):
             aesgcm = AESGCM(encryption_key)
             apdu = aesgcm.encrypt(init_vector, string_chiper_apdu, aad)
             apdu_to_string = apdu.hex()
-            self.ui.txt_result.setPlainText(apdu_to_string[:-8])
+            self.ui.txt_result.setPlainText("APDU: " + apdu_to_string[:-32] + "\nTAG: " +apdu_to_string[-32:])
 
         else:
 
-            print("not implemented yet!")
+            from cryptography.hazmat.backends import default_backend
+            from cryptography.hazmat.primitives.ciphers import algorithms, modes, Cipher
+            from cryptography.hazmat.backends.interfaces import CipherBackend
+            from cryptography.hazmat.primitives.ciphers import algorithms, base, modes
 
-            #Inizio a cifrare
-            # aesgcm = AESGCM(stringKey)
+            # Create the AAD
+            aad = check_input(security_control_byte[1] + self.ui.txt_authentication_key.text())
 
-            # ct = aesgcm.encrypt(initVector, stringApdu, unhexlify(self.ui.txtAad.text()))
+            if aad == False:
 
-            # ctToString = ct.hex()
+                return
 
-            # self.ui.textOutputApdu.setPlainText(ctToString[:-32]) #Il -8 serve per eliminare i 4 byte del TAG di autenticazione che non servono
+            encryption_key = check_input(self.ui.txt_encryption_key.text())
+
+            if encryption_key == False:
+
+                return
+
+            # Create init vector
+            init_vector = check_input(self.create_iv(self.ui.txt_frame_counter.text()))
+
+            if init_vector == False:
+                return
+
+            cipher = base.Cipher(
+                algorithms.AES(encryption_key),
+                modes.GCM(init_vector),
+                backend=default_backend()
+            )
+
+            encryptor = cipher.encryptor()
+            encryptor.authenticate_additional_data(aad)
+            encryptor.finalize()
+
+            data = encryptor.tag.hex()
+
+            self.ui.txt_result.setPlainText(data[:-8])
 
     #Funzione che si occupa di creare il vettore di inizializzazione
-    def createIV(self, frame_counter):
+    def create_iv(self, frame_counter):
 
         if(self.ui.cmb_client_server.currentText() == "Client"):
 

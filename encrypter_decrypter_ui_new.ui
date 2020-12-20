@@ -33,13 +33,13 @@
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="0" column="5">
-              <widget class="QLineEdit" name="txt_system_title"/>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_encryption_key">
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbl_client_server">
                <property name="text">
-                <string>Encryption Key (16 Bytes)</string>
+                <string>Client/Server</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -48,58 +48,8 @@
                <property name="text">
                 <string>Authentication Key (16 Bytes)</string>
                </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QComboBox" name="cmb_client_server"/>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="txt_authentication_key"/>
-             </item>
-             <item row="1" column="4" colspan="2">
-              <widget class="QLineEdit" name="txt_ldn"/>
-             </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="cmb_security_control_byte"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="lbl_security_control_byte">
-               <property name="text">
-                <string>Security Control Byte (SC)</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="3">
-              <widget class="QLabel" name="lbl_frame_counter">
-               <property name="text">
-                <string>Frame Counter (4 Bytes)</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="3" colspan="2">
-              <widget class="QLabel" name="lbl_system_title">
-               <property name="text">
-                <string>System Title</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="txt_encryption_key">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="5">
-              <widget class="QLineEdit" name="txt_frame_counter"/>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lbl_client_server">
-               <property name="text">
-                <string>Client/Server</string>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -108,18 +58,18 @@
                <property name="text">
                 <string>LDN (16 Bytes)</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
-             <item row="3" column="3">
-              <widget class="QPushButton" name="btn_encrypt_decrypt">
-               <property name="maximumSize">
-                <size>
-                 <width>93</width>
-                 <height>16777215</height>
-                </size>
-               </property>
+             <item row="2" column="3">
+              <widget class="QLabel" name="lbl_frame_counter">
                <property name="text">
-                <string>Crypt/Decrypt</string>
+                <string>Frame Counter (4 Bytes)</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -138,6 +88,131 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="cmb_security_control_byte"/>
+             </item>
+             <item row="0" column="5">
+              <widget class="QLineEdit" name="txt_system_title">
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_encryption_key">
+               <property name="text">
+                <string>Encryption Key (16 Bytes)</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="txt_encryption_key">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maxLength">
+                <number>32</number>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="cmb_client_server"/>
+             </item>
+             <item row="0" column="3" colspan="2">
+              <widget class="QLabel" name="lbl_system_title">
+               <property name="text">
+                <string>System Title</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="3">
+              <widget class="QLabel" name="lbl_stoc">
+               <property name="text">
+                <string>SToC</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="5">
+              <widget class="QLineEdit" name="txt_frame_counter">
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="maxLength">
+                <number>8</number>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="5">
+              <widget class="QLineEdit" name="txt_stoc">
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="lbl_security_control_byte">
+               <property name="text">
+                <string>Security Control Byte (SC)</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QPushButton" name="btn_encrypt_decrypt">
+               <property name="maximumSize">
+                <size>
+                 <width>93</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="text">
+                <string>Crypt/Decrypt</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="txt_authentication_key">
+               <property name="maxLength">
+                <number>32</number>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="4" colspan="2">
+              <widget class="QLineEdit" name="txt_ldn">
+               <property name="maxLength">
+                <number>32</number>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
