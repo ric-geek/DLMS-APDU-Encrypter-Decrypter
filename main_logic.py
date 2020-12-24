@@ -1,10 +1,11 @@
-import os
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from encrypter_decrypter_ui_new import Ui_MainWindow
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from binascii import unhexlify
 import sys
+import os
+import string
 
 USER_GUIDE_FILE = "\\guide\\User_guide.pdf"
 security_control_byte = ["30", "10"]
@@ -12,7 +13,7 @@ security_control_byte = ["30", "10"]
 
 def convert_ldn(ldn):
 
-    # Converto l'argomento da stringa esadecimale a stringa ASCII
+    # Convert from hex string to ASCII string
     return bytearray.fromhex(ldn).decode()
 
 
@@ -74,7 +75,8 @@ class mywindow(QtWidgets.QMainWindow):
             string_chiper_apdu = check_input(cipher_apdu)
 
             if string_chiper_apdu == False:
-                return  #Non proseguo con la decifratura
+
+                return  # Exit btn_clicked function
 
             encryption_key = check_input(self.ui.txt_encryption_key.text())
 
@@ -141,18 +143,19 @@ class mywindow(QtWidgets.QMainWindow):
 
             self.ui.txt_result.setPlainText(data[:-8])
 
-    #Funzione che si occupa di creare il vettore di inizializzazione
+    # This function create init vector
     def create_iv(self, frame_counter):
 
-        if(self.ui.cmb_client_server.currentText() == "Client"):
+        if self.ui.cmb_client_server.currentText() == "Client":
 
             return self.ui.txt_system_title.text() + frame_counter
 
         else:
 
-            if(self.ui.chbLdnHex.isChecked()):
+            if all(c in string.hexdigits for c in self.ui.txt_ldn.text()):
 
-                if (len(self.ui.txtLdn.text()) != 32):
+                if len(self.ui.txt_ldn.text()) != 32:
+
                     # Creo la messagebox di errore
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Critical)
@@ -165,11 +168,12 @@ class mywindow(QtWidgets.QMainWindow):
 
                 else:
 
-                    return self.computeServerSystemTitle() + frame_counter
+                    return self.compute_server_system_title(True) + frame_counter
 
             else:
 
-                if (len(self.ui.txtLdn.text()) != 16):
+                if len(self.ui.txt_ldn.text()) != 16:
+
                     # Creo la messagebox di errore
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Critical)
@@ -182,32 +186,34 @@ class mywindow(QtWidgets.QMainWindow):
 
                 else:
 
-                    return self.computeServerSystemTitle() + frame_counter
+                    return self.compute_server_system_title(False) + frame_counter
 
-    def computeServerSystemTitle(self):
+    def compute_server_system_title(self, is_hex):
 
-        charManufId = [] #Creo una lista vuota
+        char_manuf_id = []  # Create an empty list
 
-        if (self.ui.chbLdnHex.isChecked()):
+        # Check if string is hexdecimal
+        if is_hex:
 
-            charManufId = list(convert_ldn(self.ui.txtLdn.text()))
+            char_manuf_id = list(convert_ldn(self.ui.txt_ldn.text()))
 
         else:
 
-            charManufId = list(self.ui.txtLdn.text()) #Converto l'LDN inserito in una lista
+            char_manuf_id = list(self.ui.txt_ldn.text())
 
-        # Calcolo un pezzo di system title
-        manufacturer_id = ((ord(charManufId[0]) - 64) * 32 * 32) + ((ord(charManufId[1]) - 64) * 32) + (ord(charManufId[2]) - 64)
+        # Compute Manufactorer ID
+        manufacturer_id = ((ord(char_manuf_id[0]) - 64) * 32 * 32) + ((ord(char_manuf_id[1]) - 64) * 32) + \
+                          (ord(char_manuf_id[2]) - 64)
 
-        startServerSystemTitle = format(manufacturer_id, 'x')  # Mi serve per rimuovere "0x" davanti al valore
+        start_server_system_title = format(manufacturer_id, 'x')  # Remove "0x" prefix
 
-        # Formo il Server System Title
-        serverSystemTitle = startServerSystemTitle[2:] + startServerSystemTitle[0:2] + charManufId[14] \
-                            + charManufId[15] + charManufId[12] + charManufId[13] + charManufId[10] \
-                            + charManufId[11] + charManufId[8] + charManufId[9] + charManufId[6] \
-                            + charManufId[7] + charManufId[4] + charManufId[5]
+        # Create Server System Title
+        server_system_title = start_server_system_title[2:] + start_server_system_title[0:2] + char_manuf_id[14] \
+                              + char_manuf_id[15] + char_manuf_id[12] + char_manuf_id[13] + char_manuf_id[10] \
+                              + char_manuf_id[11] + char_manuf_id[8] + char_manuf_id[9] + char_manuf_id[6] \
+                              + char_manuf_id[7] + char_manuf_id[4] + char_manuf_id[5]
 
-        return serverSystemTitle
+        return server_system_title
 
 app = QtWidgets.QApplication([])
 application = mywindow()
