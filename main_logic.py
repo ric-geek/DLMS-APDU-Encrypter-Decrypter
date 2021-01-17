@@ -101,7 +101,9 @@ class mywindow(QtWidgets.QMainWindow):
             aesgcm = AESGCM(encryption_key)
             apdu = aesgcm.encrypt(init_vector, string_chiper_apdu, aad)
             apdu_to_string = apdu.hex()
-            self.ui.txt_result.setPlainText("APDU: " + apdu_to_string[:-32] + "\nTAG: " +apdu_to_string[-32:])
+
+            # TAG start from index -32 and end at index -8 (it's long 12 bytes)
+            self.ui.txt_result.setPlainText("APDU: " + apdu_to_string[:-32] + "\nTAG: " + apdu_to_string[-32:-8])
 
         else:
 
