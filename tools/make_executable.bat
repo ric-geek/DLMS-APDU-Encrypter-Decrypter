@@ -1,1 +1,0 @@
-pyinstaller -w %~dp0\..\executable_file\mainLogic.py

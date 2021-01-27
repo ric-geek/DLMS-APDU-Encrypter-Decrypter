@@ -242,7 +242,13 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="0" column="0">
-            <widget class="QTextEdit" name="txt_apdu"/>
+            <widget class="QTextEdit" name="txt_apdu">
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+              </font>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -254,7 +260,13 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QTextEdit" name="txt_result"/>
+            <widget class="QTextEdit" name="txt_result">
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+              </font>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

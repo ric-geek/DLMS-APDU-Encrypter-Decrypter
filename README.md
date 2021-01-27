@@ -1,12 +1,10 @@
 # DLMS-APDU-Encrypter-Decrypter
 This software allow you to do two things
 
-    - Decrypt DLMS APDU
-    - Generate encrypted DLMS APDU
-    
-It require python version 3.6+
+    - Encrypt/Decrypt DLMS APDU
+    - Generate authenticated DLMS APDU
 
-You need also these two module
+Dependencies
 
     - cryptography
     - PyQt5
